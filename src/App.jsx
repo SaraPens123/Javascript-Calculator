@@ -68,9 +68,9 @@ const calculate = () => {
   }
   const newExpression = newParts.join(" ")
   if(isOperator(newExpression.charAt(0))) {
-    setAnswer(Function('return ' + answer + newExpression)());
+    setAnswer(JSON.parse('return ' + answer + newExpression)());
   } else {
-    setAnswer(Function('return ' + newExpression)());
+    setAnswer(JSON.parse('return ' + newExpression)());
   }
   setExpression("");
 }
