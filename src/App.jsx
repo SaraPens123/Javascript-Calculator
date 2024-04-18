@@ -5,15 +5,6 @@ const isOperator = (symbol) => {
   return /[*/+-]/.test(symbol);
 }
 
-let decimal=null
-
-const isDecimal = (value) => {
-   if(value === "."){
-   let decimalnum=parseFloat(decimal)
- }
-   return decimal
-}
-
 function add(num1, num2) {
   console.log(num1)
   console.log(num2)
@@ -41,7 +32,6 @@ function execute(expression){
 
   let number1 = null;
   let operator = null;
-  let negative = "-";
   let negativenum = null
 
   for(let i=0; i < calculation.length; i++) {
