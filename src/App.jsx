@@ -1,17 +1,92 @@
 import {useState} from 'react';
 import './App.css';
 
+const isOperator = (symbol) => {
+  return /[*/+-]/.test(symbol);
+}
+
+let decimal=null
+
+const isDecimal = (value) => {
+   if(value === "."){
+   let decimalnum=parseFloat(decimal)
+ }
+   return decimal
+}
+
+function add(num1, num2) {
+  console.log(num1)
+  console.log(num2)
+  return num1 + num2
+}
+
+function subtract(num1, num2) {
+  return num1 - num2
+}
+
+function multiply(num1, num2) {
+  return num1 * num2
+}
+
+function divide(num1,num2) {
+  return num1 / num2 
+}
+
+let result = null;
+
+function execute(expression){
+  console.log(expression)
+  let calculation = expression.split(" ")
+  console.log(calculation)
+
+  let number1 = null;
+  let operator = null;
+  let negative = "-";
+  let negativenum = null
+
+  for(let i=0; i < calculation.length; i++) {
+    let val = calculation[i]
+    if(!isOperator(val)) {
+      val = new Number(val);
+      if(negativenum){
+        val = val * -1;
+        negativenum = null;
+      }
+      if(number1 === null) {
+        number1 = val;
+      }  else {
+          if (operator === "+") { 
+              result = add(number1, val); 
+          } else if (operator === "-") { 
+              result = subtract(number1, val); 
+          } else if (operator === "*") { 
+              result = multiply(number1, val); 
+          } else if (operator === "/") { 
+              result = divide(number1, val); 
+       }
+         number1 = result  
+         operator = null;
+      }
+    } else {
+      if(val === "-" && operator) {
+        negativenum = true
+        continue
+      }
+      operator = val
+    }
+
+  }
+  return result;
+  console.log(result)
+}
+
 function App() {
 
 const [answer, setAnswer] = useState('');
 const [expression, setExpression] = useState(''); 
 const et = expression.trim();
 
-const isOperator = (symbol: string) => {
-  return /[*/+-]/.test(symbol);
-}
-
-const buttonPress = (symbol: string) => {
+const buttonPress = (symbol) => {
   if(symbol === "clear") {
     setAnswer('');
     setExpression('0');
@@ -68,12 +143,13 @@ const calculate = () => {
   }
   const newExpression = newParts.join(" ")
   if(isOperator(newExpression.charAt(0))) {
-    setAnswer(JSON.parse('return ' + answer + newExpression)());
+    setAnswer(execute(answer + ' ' + newExpression));
   } else {
-    setAnswer(JSON.parse('return ' + newExpression)());
+    setAnswer(execute(newExpression));
   }
   setExpression("");
 }
+
   return (
      <div className="container">
         <div id="calculator">
