@@ -37,7 +37,7 @@ function execute(expression){
   for(let i=0; i < calculation.length; i++) {
     let val = calculation[i]
     if(!isOperator(val)) {
-      val = new Number(val);
+      val = Number(val);
       if(negativenum){
         val = val * -1;
         negativenum = null;
@@ -67,7 +67,6 @@ function execute(expression){
 
   }
   return result;
-  console.log(result)
 }
 
 function App() {
